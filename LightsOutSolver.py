@@ -40,7 +40,7 @@ def eval_genomes(genomes, config):
             if not game.checkForWin():
                 genome.fitness += 5.0 - game.turnsRemaining()
             else: 
-                genome.fitness += 10.0 - game.turns()
+                genome.fitness += 20.0 - (abs(game.turns() - moves[0]))
             game.restore()
 
         genome.fitness = float(genome.fitness)
