@@ -158,6 +158,18 @@ class LightsOut:
                 celldimX, celldimY))
         pygame.display.update()
 
+    def toString(self):
+        if self.checkForWin():
+            return f'You won in {self.turnsTaken} turns!'
+            
+        solutionString = ""
+        solutionList = self.solution.tolist()
+        for r in range (self.rowLength):
+            solutionString += "\n"
+            for c in range (self.colLength):
+                solutionString += f'[{solutionList[r * self.rowLength + c][0]}]'
+        return f'Turns Taken: {self.turnsTaken}, Solution: {solutionString}'
+
 
 def main():
     pygame.init()
@@ -167,16 +179,13 @@ def main():
     onColor = (255, 255, 0)
     offColor = (160, 160, 160)
     game = LightsOut(colLength, rowLength, 750, 750, onColor, offColor, WIN)
-    print(game.currentSolution())
-    print(game.turnsRemaining())
-    
+    print(game.toString())
     
     while 1:
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 game.updateBoard(event.pos)
-                print(game.currentSolution())
-                print(game.turnsRemaining())
+                print(game.toString())
             if event.type == WIN:
                 pygame.quit()
                 sys.exit()

@@ -7,6 +7,8 @@ import pygame
 
 os.environ["PATH"] += os.pathsep + 'C:\Program Files (x86)\Graphviz2.38/bin/'
 WIN = pygame.USEREVENT + 1
+GENERATIONS = 300
+NUM_TEST_GAMES = 200
 
 colTiles = 3
 rowTiles = 3
@@ -19,7 +21,7 @@ testGames = []
 testMovesRequired = []
 
 def createTestingData():
-    for i in range (10):
+    for i in range (NUM_TEST_GAMES):
         game = LightsOut(colTiles, rowTiles, width, height, yellow, gray, WIN)
         testGames.append(game)
         testMovesRequired.append(game.turnsRemaining())
@@ -81,7 +83,7 @@ def run(config_file):
     visualize.plot_species(stats, view=True)
 
     p = neat.Checkpointer.restore_checkpoint('neat-checkpoint-4')
-    p.run(eval_genomes, 10)
+    p.run(eval_genomes, GENERATIONS)
 
 
 if __name__ == '__main__':
